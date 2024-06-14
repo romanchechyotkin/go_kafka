@@ -1,0 +1,119 @@
+version: '2'
+
+services:
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.4.4
+    container_name: zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - '22181:2181'
+
+  kafka:
+    image: confluentinc/cp-kafka:7.4.4
+    container_name: kafka
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092,PLAINTEXT_HOST://localhost:29092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+
+  producer-0:
+    container_name: producer-0
+    build:
+      context: .
+      dockerfile: ./producer/Dockerfile
+    restart: always
+    environment:
+      HTTP: "8000"
+      HOST: "kafka"
+      PORT: "9092"
+      TOPIC: "test"
+      PARTITION: "0"
+    ports:
+      - "8000:8000"
+    depends_on:
+      - kafka
+
+  producer-1:
+    container_name: producer-1
+    build:
+      context: .
+      dockerfile: ./producer/Dockerfile
+    restart: always
+    environment:
+      HTTP: "8001"
+      HOST: "kafka"
+      PORT: "9092"
+      TOPIC: "test"
+      PARTITION: "1"
+    ports:
+      - "8001:8001"
+    depends_on:
+      - kafka
+
+  producer-2:
+    container_name: producer-2
+    build:
+      context: .
+      dockerfile: ./producer/Dockerfile
+    restart: always
+    environment:
+      HTTP: "8002"
+      HOST: "kafka"
+      PORT: "9092"
+      TOPIC: "test"
+      PARTITION: "2"
+    ports:
+      - "8002:8002"
+    depends_on:
+      - kafka
+
+
+  consumer-0:
+    container_name: consumer-0
+    build:
+      context: .
+      dockerfile: ./consumer/Dockerfile
+    restart: always
+    environment:
+      HOST: "kafka"
+      PORT: "9092"
+      TOPIC: "test"
+      PARTITION: "0"
+    depends_on:
+      - kafka
+
+  consumer-1:
+    container_name: consumer-1
+    build:
+      context: .
+      dockerfile: ./consumer/Dockerfile
+    restart: always
+    environment:
+      HOST: "kafka"
+      PORT: "9092"
+      TOPIC: "test"
+      PARTITION: "1"
+    depends_on:
+      - kafka
+
+  consumer-2:
+    container_name: consumer-2
+    build:
+      context: .
+      dockerfile: ./consumer/Dockerfile
+    restart: always
+    environment:
+      HOST: "kafka"
+      PORT: "9092"
+      TOPIC: "test"
+      PARTITION: "2"
+    depends_on:
+      - kafka
