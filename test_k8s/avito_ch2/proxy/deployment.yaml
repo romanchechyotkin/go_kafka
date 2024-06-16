@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: proxy-server
+  labels:
+    app: proxy-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: proxy-server
+  template:
+    metadata:
+      name: proxy-server
+      labels:
+        app: proxy-server
+    spec:
+      containers:
+        - name: proxy-server
+          image: proxy_server
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8890
+              protocol: TCP
+      restartPolicy: Always
+      

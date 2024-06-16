@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: time-server
+  labels:
+    app: time-server
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: time-server
+  template:
+    metadata:
+      name: time-server
+      labels:
+        app: time-server
+    spec:
+      containers:
+        - name: time-server
+          image: time_server
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8891
+              protocol: TCP
+          env:
+            - name: ADDR
+              value: http://time-server:8891
+      restartPolicy: Always
+      
