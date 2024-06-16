@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-kafka-example
+  labels:
+    app: go-kafka-example
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: go-kafka-example
+  template:
+    metadata:
+      name: go-kafka-example
+      labels:
+        app: go-kafka-example
+    spec:
+      containers:
+        - name: go-kafka-example
+          image: go_kafka
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8890
+              protocol: TCP
+      restartPolicy: Always
+      
