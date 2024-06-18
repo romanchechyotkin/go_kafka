@@ -1,0 +1,159 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-0
+  labels:
+    app: producer-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer-0
+  template:
+    metadata:
+      name: producer-0
+      labels:
+        app: producer-0
+    spec:
+      containers:
+        - name: title
+          image: producer
+          imagePullPolicy: Never
+          env:
+            - name: HTTP
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-0
+                  key: http
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: producer-0
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-0
+                  key: port
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  key: topic
+                  name: producer-0
+            - name: PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  key: partition
+                  name: producer-0
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+      restartPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-1
+  labels:
+    app: producer-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer-1
+  template:
+    metadata:
+      name: producer-1
+      labels:
+        app: producer-1
+    spec:
+      containers:
+        - name: title
+          image: producer
+          imagePullPolicy: Never
+          env:
+            - name: HTTP
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-1
+                  key: http
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: producer-1
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-1
+                  key: port
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  key: topic
+                  name: producer-1
+            - name: PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  key: partition
+                  name: producer-1
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+      restartPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer-2
+  labels:
+    app: producer-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer-2
+  template:
+    metadata:
+      name: producer-2
+      labels:
+        app: producer-2
+    spec:
+      containers:
+        - name: title
+          image: producer
+          imagePullPolicy: Never
+          env:
+            - name: HTTP
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-2
+                  key: http
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: producer-2
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: producer-2
+                  key: port
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  key: topic
+                  name: producer-2
+            - name: PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  key: partition
+                  name: producer-2
+          ports:
+            - containerPort: 8000
+              protocol: TCP
+      restartPolicy: Always

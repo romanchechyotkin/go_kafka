@@ -30,7 +30,7 @@ func (r *Reader) Consume(ctx context.Context) {
 			continue
 		}
 
-		fmt.Printf("message at offset %d: %s = %s\n", message.Offset, string(message.Key), string(message.Value))
+		log.Printf("message at offset %d: %s = %s\n", message.Offset, string(message.Key), string(message.Value))
 	}
 }
 
@@ -65,7 +65,7 @@ func main() {
 
 	go func() {
 		sig := <-signals
-		fmt.Println("shutting down on signal", sig)
+		log.Println("shutting down on signal", sig)
 		reader.Close()
 		cancel()
 	}()
