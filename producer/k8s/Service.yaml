@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: producer-0
+spec:
+  selector:
+    app: producer-0
+  ports:
+    - protocol: TCP
+      port: 8000
+      targetPort: 8000
+  type: NodePort
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: producer-1
+spec:
+  selector:
+    app: producer-1
+  ports:
+    - protocol: TCP
+      port: 8001
+      targetPort: 8001
+  type: NodePort
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: producer-2
+spec:
+  selector:
+    app: producer-2
+  ports:
+    - protocol: TCP
+      port: 8002
+      targetPort: 8002
+  type: NodePort
+
