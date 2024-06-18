@@ -22,5 +22,6 @@ example
     kubectl apply -f producer/k8s/ConfigMap.yaml
     kubectl apply -f producer/k8s/Deployment.yaml
     
-    
+    kubectl apply -f consumer/k8s/ConfigMap.yaml
+    kubectl apply -f consumer/k8s/Deployment.yaml
 ```

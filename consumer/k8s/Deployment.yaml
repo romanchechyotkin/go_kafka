@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-0
+  labels:
+    app: consumer-0
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-0
+  template:
+    metadata:
+      name: consumer-0
+      labels:
+        app: consumer-0
+    spec:
+      containers:
+        - name: consumer-0
+          image: consumer
+          imagePullPolicy: Never
+          env:
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: consumer-0
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: consumer-0
+                  key: port
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  key: topic
+                  name: consumer-0
+            - name: PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  key: partition
+                  name: consumer-0
+      restartPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-1
+  labels:
+    app: consumer-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-1
+  template:
+    metadata:
+      name: consumer-1
+      labels:
+        app: consumer-1
+    spec:
+      containers:
+        - name: consumer-1
+          image: consumer
+          imagePullPolicy: Never
+          env:
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: consumer-1
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: consumer-1
+                  key: port
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  key: topic
+                  name: consumer-1
+            - name: PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  key: partition
+                  name: consumer-1
+      restartPolicy: Always
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer-2
+  labels:
+    app: consumer-2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer-2
+  template:
+    metadata:
+      name: consumer-2
+      labels:
+        app: consumer-2
+    spec:
+      containers:
+        - name: consumer-2
+          image: consumer
+          imagePullPolicy: Never
+          env:
+            - name: HOST
+              valueFrom:
+                configMapKeyRef:
+                  key: host
+                  name: consumer-2
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: consumer-2
+                  key: port
+            - name: TOPIC
+              valueFrom:
+                configMapKeyRef:
+                  key: topic
+                  name: consumer-2
+            - name: PARTITION
+              valueFrom:
+                configMapKeyRef:
+                  key: partition
+                  name: consumer-2
+      restartPolicy: Always
